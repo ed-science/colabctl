@@ -14,7 +14,7 @@ import validators
 
 
 def sleep(seconds):
-    for i in range(seconds):
+    for _ in range(seconds):
         try:
             time.sleep(1)
         except KeyboardInterrupt:
@@ -64,7 +64,6 @@ def wait_for_xpath(driver, x):
             return True
         except:
             time.sleep(0.1)
-            pass
 
 
 def scroll_to_bottom(driver):
@@ -84,15 +83,11 @@ def scroll_to_bottom(driver):
 
 
 def file_to_list(filename):
-    colabs = []
-    for line in open(filename):
-        if validators.url(line):
-            colabs.append(line)
-    return colabs
+    return [line for line in open(filename) if validators.url(line)]
 
 
 def switch_to_tab(driver, tab_index):
-    print("Switching to tab " + str(tab_index))
+    print(f"Switching to tab {str(tab_index)}")
     try:
         driver.switch_to.window(driver.window_handles[tab_index])
     except:
@@ -101,7 +96,7 @@ def switch_to_tab(driver, tab_index):
 
 
 def new_tab(driver, url, tab_index):
-    print("Opening new tab to " + str(url))
+    print(f"Opening new tab to {str(url)}")
     try:
         driver.execute_script("window.open('" + str(url) + "')")
     except:
